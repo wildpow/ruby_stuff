@@ -1,33 +1,26 @@
+def case_state(player1, player2, x, y)
+  case player1
+  when 'rock' then puts "#{x} #{player1} brakes #{y} #{player2}!"
+  when 'paper' then puts "#{x} #{player1} covers #{y} #{player2}!"
+  else puts "#{x} #{player1} cuts through #{y} #{player2}!"
+  end
+end
+
 actions = ['rock', 'scissors', 'paper']
 
 puts "Lets play Roshambo? Pick rock, scissors, or paper"
-shoot = gets.chomp
+play = gets.chomp
 1.upto(3) { |n| puts n}
-com_shoot = actions.sample
-puts "Computer throws #{com_shoot}"
+comp_play = actions.sample
+puts "Computer throws #{comp_play}"
 
 
-if shoot == com_shoot
-  puts "It's a tie! We both choose #{shoot}.."
-elsif (shoot == 'rock' && com_shoot == 'scissors') || (shoot == 'paper' && com_shoot == 'rock') || (shoot == 'scissors' && com_shoot == 'paper')
+if play == comp_play
+  puts "It's a tie! We both choose #{play}.."
+elsif (play == 'rock' && comp_play == 'scissors') || (play == 'paper' && comp_play == 'rock') || (play == 'scissors' && comp_play == 'paper')
   puts "YOU WIN!!!"
-  case shoot
-  when 'rock'
-    puts "Your #{shoot} brakes my #{com_shoot}!"
-  when 'paper'
-    puts "Your #{shoot} covers my #{com_shoot}!"
-  else
-    puts "Your #{shoot} cuts through my #{com_shoot}!"
-  end
+  case_state(play, comp_play, 'Your', 'my')
 else
   puts 'YOU LOOSE!!!!'
-  case com_shoot
-  when 'rock'
-    puts "My #{com_shoot} brakes your #{shoot}!"
-  when 'paper'
-    puts "My #{com_shoot} covers your #{shoot}!"
-  else
-    puts "My #{com_shoot} cuts through your #{shoot}!"
-  end
-
+  case_state(comp_play, play, 'My','your')
 end
