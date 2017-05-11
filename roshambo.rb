@@ -6,21 +6,35 @@ def outcome(player1, player2, str1, str2)
   end
 end
 
-actions = ['rock', 'scissors', 'paper']
-
-puts "Lets play Roshambo? Pick rock, scissors, or paper"
-play = gets.chomp
-1.upto(3) { |n| puts n}
-comp_play = actions.sample
-puts "Computer throws #{comp_play}"
+def valid_input?(input)
+  input == 'rock' || input == 'paper' || input == 'scissors'
+end
 
 
-if play == comp_play
-  puts "It's a tie! We both choose #{play}.."
-elsif (play == 'rock' && comp_play == 'scissors') || (play == 'paper' && comp_play == 'rock') || (play == 'scissors' && comp_play == 'paper')
-  puts "YOU WIN!!!"
-  outcome(play, comp_play, 'Your', 'my')
-else
-  puts 'YOU LOOSE!!!!'
-  outcome(comp_play, play, 'My','your')
+
+loop do
+  puts "Lets play Roshambo? Pick rock, scissors, or paper"
+  play = gets.chomp.downcase
+  puts puts
+
+  if valid_input?(play)
+    puts "Good old #{play} nothing beats #{play}!"
+    1.upto(3) { |n| puts n}
+    comp_play = ['rock', 'scissors', 'paper'].sample
+    puts "Computer throws #{comp_play}"
+    puts
+    if play == comp_play
+      puts "It's a tie! We both choose #{play}.."
+    elsif (play == 'rock' && comp_play == 'scissors') || (play == 'paper' && comp_play == 'rock') || (play == 'scissors' && comp_play == 'paper')
+      puts "YOU WIN!!!"
+      outcome(play, comp_play, 'Your', 'my')
+      break
+    else
+      puts 'YOU LOOSE!!!!'
+      outcome(comp_play, play, 'My','your')
+      break
+    end
+  else
+    puts "Please enter ether 'rock', 'paper', or 'scissors'"
+  end
 end
