@@ -23,11 +23,11 @@ else
   puts 'YOU LOOSE!!!!'
   case com_shoot
   when 'rock'
-    puts "My #{shoot} brakes your #{com_shoot}!"
+    puts "My #{com_shoot} brakes your #{shoot}!"
   when 'paper'
-    puts "My #{shoot} covers your #{com_shoot}!"
+    puts "My #{com_shoot} covers your #{shoot}!"
   else
-    puts "My #{shoot} cuts through your #{com_shoot}!"
+    puts "My #{com_shoot} cuts through your #{shoot}!"
   end
 
 end
