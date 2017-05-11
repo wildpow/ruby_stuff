@@ -1,8 +1,8 @@
-def case_state(player1, player2, x, y)
+def outcome(player1, player2, str1, str2)
   case player1
-  when 'rock' then puts "#{x} #{player1} brakes #{y} #{player2}!"
-  when 'paper' then puts "#{x} #{player1} covers #{y} #{player2}!"
-  else puts "#{x} #{player1} cuts through #{y} #{player2}!"
+  when 'rock' then puts "#{str1} #{player1} brakes #{str2} #{player2}!"
+  when 'paper' then puts "#{str1} #{player1} covers #{str2} #{player2}!"
+  else puts "#{str1} #{player1} cuts through #{str2} #{player2}!"
   end
 end
 
@@ -19,8 +19,8 @@ if play == comp_play
   puts "It's a tie! We both choose #{play}.."
 elsif (play == 'rock' && comp_play == 'scissors') || (play == 'paper' && comp_play == 'rock') || (play == 'scissors' && comp_play == 'paper')
   puts "YOU WIN!!!"
-  case_state(play, comp_play, 'Your', 'my')
+  outcome(play, comp_play, 'Your', 'my')
 else
   puts 'YOU LOOSE!!!!'
-  case_state(comp_play, play, 'My','your')
+  outcome(comp_play, play, 'My','your')
 end
