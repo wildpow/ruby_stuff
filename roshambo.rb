@@ -10,11 +10,22 @@ def valid_input?(input)
   input == 'rock' || input == 'paper' || input == 'scissors'
 end
 
-
-
-loop do
+def player_play
   puts "Lets play Roshambo? Pick rock, scissors, or paper"
   play = gets.chomp.downcase
+end
+
+def play_again?
+  answer = gets.chomp.downcase
+  if answer == 'y'
+    player_play
+  else
+    puts "Good bye and thanks you playing"
+  end
+end
+
+loop do
+  play = player_play
   puts puts
 
   if valid_input?(play)
