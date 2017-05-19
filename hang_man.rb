@@ -2,8 +2,8 @@ def get_rand_word
   return words = ['Apple','Tiffany', 'Cora', 'beets','Ruby'].sample
 end
 
-def display_guess(word = '_')
-  puts "Guess '_' '_' '_' '_' '_' '_' "
+def display_guess(board)
+  puts "Guess #{board[0]} #{board[1]} #{board[2]} #{board[3]} '_' '_' "
 end
 
 def state_of_board
