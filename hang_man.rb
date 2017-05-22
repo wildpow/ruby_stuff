@@ -1,25 +1,34 @@
+
+start = []
+
+guesses = 0
 def get_rand_word
-  return words = ['Apple','Tiffany', 'Cora', 'beets','Ruby'].sample
+  words = ['Apple','Tiffany', 'Cora', 'beets','Ruby'].sample
 end
 
-def display_guess(board)
-  puts "Guess #{board[0]} #{board[1]} #{board[2]} #{board[3]} '_' '_' "
+def hang(num, start)
+  hang_man = ["|", "( )", "|", "--", "-", "--", "|", "/ ", "\\", "<>", "<>"]
+  start << hang_man[num]
 end
 
-def state_of_board
+
+def display_board(arr)
   puts"    ______________  "
-  puts"    |            |  "
-  puts"    |           ( ) "
-  puts"    |            |  "
-  puts"    |          -----"
-  puts"    |            |  "
-  puts"    |           / \\"
-  puts"    |               "
+  puts"    |            #{arr[0]}  "
+  puts"    |           #{arr[1]} "
+  puts"    |            #{arr[2]}  "
+  puts"    |          #{arr[3]}#{arr[4]}#{arr[5]}"
+  puts"    |            #{arr[6]}  "
+  puts"    |           #{arr[7]}#{arr[8]}"
+  puts"    |          #{arr[9]} #{arr[10]}"
   puts"    |               "
   puts"--------------------"
   puts
 end
-state_of_board
-display_guess
 
+display_board(start)
+hang(0,start)
+display_board(start)
+hang(1,start)
+display_board(start)
 p get_rand_word
