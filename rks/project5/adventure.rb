@@ -1,3 +1,75 @@
+def size
+  ["huge", "large", "big", "regular", "small", "tiny"].sample
+end
+
+def color
+  ["red", "blue", "green", "dark", "golden", "crystal"].sample
+end
+
+def room_type
+  ["cave", "treasure room", "rock cavern", "tomb", "guard room", "lair"].sample
+end
+
+def direction
+  ["north", "south", "east", "west"].sample
+end
+
+def create_room
+  "You are in a #{size} #{color} #{room_type}.
+  There is an exit on the #{direction} wall."
+end
+
+def has_monster?
+  if roll_dice(2, 6) >= 8
+    true
+  else
+    false
+  end
+end
+
+def roll_dice(number_of_dice, size_of_dice)
+  total = 0
+  1.upto(number_of_dice) do
+    total = total + rand(size_of_dice) + 1
+  end
+  return total
+end
+
+def has_escaped?
+  if roll_dice(2, 6) >= 11
+    true
+  else
+    false
+  end
+end
+
+def monster_attack?
+  if roll_dice(2, 6) >= 9
+    true
+  else
+    false
+  end
+end
+
+def defeat_monster?
+  if roll_dice(2, 6) >= 4
+    true
+  else
+    false
+  end
+end
+
+def has_treasure?
+  if roll_dice(2, 6) >= 8
+    true
+  else
+    false
+  end
+end
+
+def treasure
+  ["gold coins", "gems", "a magic wand", "an enchanted sword"].sample
+end
 
 number_of_rooms_explored  = 1
 treasure_count            = 0
@@ -6,9 +78,6 @@ escaped                   = false
 monster                   = false
 current_room              = create_room
 
-def create_room
-  "You are in a room. There is an exit on the wall."
-end
 
 puts "Your are trapped in the dungeon. Collect treasure and try to escape"
 puts "before an evil monster gets you!"
@@ -22,7 +91,7 @@ while damage_points > 0 and not escaped do
   puts current_room
 
   if monster
-    puts "Oh no! An evil monster is ni here with you!"
+    puts "Oh no! An evil monster is in here with you!"
     actions << "f - fight"
   end
   print "What do you do? (#{actions.join(', ')}): "
