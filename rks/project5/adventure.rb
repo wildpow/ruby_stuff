@@ -1,47 +1,26 @@
-def size
-  ["huge", "large", "big", "regular", "small", "tiny", "average", "medium", "muddy"].sample
-end
-
-def color
-  ["red", "blue", "green", "dark", "golden", "crystal"].sample
-end
-
-def room_type
-  ["cave", "treasure room", "rock cavern", "tomb", "guard room", "lair", "taco bell"].sample
-end
-
-def direction
-  ["north", "south", "east", "west"].sample
-end
+require 'pry'
 
 def create_room
+  size = ["huge", "large", "big", "regular", "small", "tiny", "average", "medium", "muddy"].sample
+  color = ["red", "blue", "green", "dark", "golden", "crystal"].sample
+  room_type = ["cave", "treasure room", "rock cavern", "tomb", "guard room", "lair", "taco bell"].sample
+  direction = ["north", "south", "east", "west"].sample
+
   "You are in a #{size} #{color} #{room_type}.
   There is an exit on the #{direction} wall."
 end
 
-def disposition
-  ["evil", "cranky", "superficial", "crazy", "mean", "super pissed", "lazy"].sample
-end
-
-def monster_type1
-  monster_type1 = ["mac truck", "ICP", "stuffed animal", "potato", "banana"].sample
-end
-
-def monster_type2
-  monster_type2 = ["furbie","unicorn","sonic the hedge hog", "batman", "beany baby"].sample
-end
-
 def monster_generator
+  disposition = ["evil", "cranky", "superficial", "crazy", "mean", "super pissed", "lazy"].sample
+  monster_type1 = ["mac truck", "grimlin", "stuffed animal", "potato", "banana"].sample
+  monster_type2 = ["furbie","unicorn","sonic the hedge hog", "batman", "beany baby"].sample
+
   "Oh no! A #{disposition} monster is in here with you!
   Looks like a cross between a #{monster_type1} and #{ monster_type2}!"
 end
 
 def has_monster?
-  if roll_dice(2, 6) >= 8
-    true
-  else
-    false
-  end
+  roll_dice(2, 6) >= 8
 end
 
 def roll_dice(number_of_dice, size_of_dice)
@@ -53,35 +32,19 @@ def roll_dice(number_of_dice, size_of_dice)
 end
 
 def has_escaped?
-  if roll_dice(2, 6) >= 11
-    true
-  else
-    false
-  end
+  roll_dice(2, 6) >= 11
 end
 
 def monster_attack?
-  if roll_dice(2, 6) >= 9
-    true
-  else
-    false
-  end
+  roll_dice(2, 6) >= 9
 end
 
 def defeat_monster?
-  if roll_dice(2, 6) >= 4
-    true
-  else
-    false
-  end
+  roll_dice(2, 6) >= 4
 end
 
 def has_treasure?
-  if roll_dice(2, 6) >= 7
-    true
-  else
-    false
-  end
+  roll_dice(2, 6) >= 7
 end
 
 def treasure
@@ -110,48 +73,58 @@ while damage_points > 0 and not escaped do
   puts current_room
 
   if monster
-    current_monster = monster_generator
+    puts
     puts current_monster
     actions << "f - fight"
   end
+  puts
   print "What do you do? (#{actions.join(', ')}): "
   player_action = gets.chomp
   if monster and monster_attack?
-    damage_points = damage_points - 1
+    damage_points -= 1
+    puts
     puts "OUCH, the monster bit you!"
   end
   if player_action == "m"
     current_room = create_room
-    number_of_rooms_explored = number_of_rooms_explored + 1
+    number_of_rooms_explored += 1
     monster = has_monster?
+    current_monster = monster_generator
     escaped = has_escaped?
     room_searched = false
   elsif player_action == "s"
     if room_searched == false
       if has_treasure?
-      puts "You found #{treasure}!"
-      treasure_count = treasure_count + 1
-      room_searched = true
+        puts
+        puts "You found #{treasure}!"
+        treasure_count += 1
+        room_searched = true
       else
+        puts
         puts "You look, but don't find anything."
         room_searched = true
       end
     else
+      puts
       puts "You look again in the same spots as monsters draw closer!"
     end
     if not monster
       monster = has_monster?
+      current_monster = monster_generator
     end
   elsif player_action == "f"
     if monster
       if defeat_monster?
-        mosters_defeated = mosters_defeated + 1
+        mosters_defeated += 1
         monster = false
+        puts
         puts "You defeated the scary monster!"
       else
+        puts
         puts "You attack and MISS!!!"
       end
     else
+      puts
       puts "You pretend your sword is a lightsaber and make the noises"
       puts "wwwwOOWWwww...WOOOOwwwwwwwOOOWwwww"
     end
@@ -159,6 +132,7 @@ while damage_points > 0 and not escaped do
     puts "You slowly slip into madness as your soul has a cup of tea"
     exit
   else
+    puts
     puts "I don't know how to do that!"
   end
   puts ""
