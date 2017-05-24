@@ -1,5 +1,5 @@
 def size
-  ["huge", "large", "big", "regular", "small", "tiny"].sample
+  ["huge", "large", "big", "regular", "small", "tiny", "average", "medium", "muddy"].sample
 end
 
 def color
@@ -7,7 +7,7 @@ def color
 end
 
 def room_type
-  ["cave", "treasure room", "rock cavern", "tomb", "guard room", "lair"].sample
+  ["cave", "treasure room", "rock cavern", "tomb", "guard room", "lair", "taco bell"].sample
 end
 
 def direction
@@ -17,6 +17,23 @@ end
 def create_room
   "You are in a #{size} #{color} #{room_type}.
   There is an exit on the #{direction} wall."
+end
+
+def disposition
+  ["evil", "cranky", "superficial", "crazy", "mean", "super pissed", "lazy"].sample
+end
+
+def monster_type1
+  monster_type1 = ["mac truck", "ICP", "stuffed animal", "potato", "banana"].sample
+end
+
+def monster_type2
+  monster_type2 = ["furbie","unicorn","sonic the hedge hog", "batman", "beany baby"].sample
+end
+
+def monster_generator
+  "Oh no! A #{disposition} monster is in here with you!
+  Looks like a cross between a #{monster_type1} and #{ monster_type2}!"
 end
 
 def has_monster?
@@ -60,7 +77,7 @@ def defeat_monster?
 end
 
 def has_treasure?
-  if roll_dice(2, 6) >= 8
+  if roll_dice(2, 6) >= 7
     true
   else
     false
@@ -73,11 +90,12 @@ end
 
 number_of_rooms_explored  = 1
 treasure_count            = 0
-damage_points             = 5
+damage_points             = 6
 escaped                   = false
 monster                   = false
 current_room              = create_room
-
+current_monster           = monster_generator
+mosters_defeated          = 0
 
 puts "Your are trapped in the dungeon. Collect treasure and try to escape"
 puts "before an evil monster gets you!"
@@ -86,12 +104,13 @@ puts ""
 
 
 while damage_points > 0 and not escaped do
-  actions = ["m - move", "s - search"]
+  actions = ["m - move", "s - search", " q - quit game"]
   puts "Room number #{number_of_rooms_explored}"
   puts current_room
 
   if monster
-    puts "Oh no! An evil monster is in here with you!"
+    current_monster = monster_generator
+    puts current_monster
     actions << "f - fight"
   end
   print "What do you do? (#{actions.join(', ')}): "
@@ -117,11 +136,15 @@ while damage_points > 0 and not escaped do
     end
   elsif player_action == "f"
     if defeat_monster?
+      mosters_defeated = mosters_defeated + 1
       monster = false
       puts "You defeated the scary monster!"
     else
       puts "You attack and MISS!!!"
     end
+  elsif player_action == "q"
+    puts "You slowly slip into madness as your soul has a cup of tea"
+    exit
   else
     puts "I don't know how to do that!"
   end
@@ -131,6 +154,7 @@ if damage_points > 0
   puts "You escaped!"
   puts "You explored #{number_of_rooms_explored} rooms"
   puts "and found #{treasure_count} treasures."
+  puts "and you killed #{mosters_defeated} monsters!"
 else
   puts "OH NO! You didn't make it out!"
   puts "You explored #{number_of_rooms_explored} rooms"
