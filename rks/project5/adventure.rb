@@ -96,6 +96,7 @@ monster                   = false
 current_room              = create_room
 current_monster           = monster_generator
 mosters_defeated          = 0
+room_searched             = false
 
 puts "Your are trapped in the dungeon. Collect treasure and try to escape"
 puts "before an evil monster gets you!"
@@ -124,23 +125,35 @@ while damage_points > 0 and not escaped do
     number_of_rooms_explored = number_of_rooms_explored + 1
     monster = has_monster?
     escaped = has_escaped?
+    room_searched = false
   elsif player_action == "s"
-    if has_treasure?
+    if room_searched == false
+      if has_treasure?
       puts "You found #{treasure}!"
       treasure_count = treasure_count + 1
+      room_searched = true
+      else
+        puts "You look, but don't find anything."
+        room_searched = true
+      end
     else
-      puts "You look, but don't find anything."
+      puts "You look again in the same spots as monsters draw closer!"
     end
     if not monster
       monster = has_monster?
     end
   elsif player_action == "f"
-    if defeat_monster?
-      mosters_defeated = mosters_defeated + 1
-      monster = false
-      puts "You defeated the scary monster!"
+    if monster
+      if defeat_monster?
+        mosters_defeated = mosters_defeated + 1
+        monster = false
+        puts "You defeated the scary monster!"
+      else
+        puts "You attack and MISS!!!"
+      end
     else
-      puts "You attack and MISS!!!"
+      puts "You pretend your sword is a lightsaber and make the noises"
+      puts "wwwwOOWWwww...WOOOOwwwwwwwOOOWwwww"
     end
   elsif player_action == "q"
     puts "You slowly slip into madness as your soul has a cup of tea"
