@@ -31,5 +31,8 @@ class Player
     end
     pay
   end
+  def win(amount)
+    @chips += amount
+  end
 
 end
