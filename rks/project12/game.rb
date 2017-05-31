@@ -49,7 +49,7 @@ class Game
     end
   end
 
-  def evolve
+  def evolve 
     life = []
     @grid.each_cell_position do |x,y|
       if determine_fate(x,y)
