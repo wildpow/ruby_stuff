@@ -26,11 +26,13 @@ class Cell
       y3 = y2 + HEIGHT
       x4 = x1
       y4 = y3
-      c = @@colors[:green]
+      c = color
       @@window.draw_quad(x1, y1, c, x2, y2, c, x3, y3, c, x4, y4, c, 20)
     end
   end
-
+  def color
+    @@colors[:green]
+  end
   def life_points
     alive? ? 1 : 0
   end

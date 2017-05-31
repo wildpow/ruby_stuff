@@ -31,7 +31,7 @@ class Grid
       end
     else
       seeds.each do |x, y|
-        cells(x,y).live!
+        cell(x,y).live!
       end
     end
   end
@@ -89,7 +89,7 @@ class Grid
         next if row < 0 || row >= @total_rows
         next if column < 0 || column >= @total_columns
         next if x == column && y == row
-        cells << cell[column,row]
+        cells << cell(column,row)
       end
     end
     cells.compact
